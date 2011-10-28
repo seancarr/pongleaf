@@ -1,24 +1,16 @@
 module MatchesHelper
+  
   def calculate_rankings(matches)
-    ranking = []
-
+    cached_elo_players = Hash.new{|h,k| h[k] = Elo::Player.new}
+    
     matches.each do |match|
-      winner = match.winner.name
-      loser  = match.loser.name
-
-      ranking << winner unless ranking.include? winner
-      ranking << loser  unless ranking.include? loser
-
-      winner_index = ranking.index(winner)
-      loser_index  = ranking.index(loser)
-
-      if winner_index > loser_index
-        new_index = (winner_index + loser_index) / 2
-        ranking.delete_at(winner_index)
-        ranking.insert(new_index, winner)
-      end
+      elo_winner = cached_elo_players[match.winner.display_name]
+      elo_loser = cached_elo_players[match.loser.display_name]
+      
+      elo_winner.wins_from(elo_loser)
     end
-
-    ranking.collect(&:titleize)
+    
+    cached_elo_players.to_a.sort_by{|name, elo| elo.rating}.reverse
   end
+  
 end

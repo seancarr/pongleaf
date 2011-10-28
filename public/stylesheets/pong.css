@@ -132,6 +132,11 @@ td.action, th.action {
   background-color: #e7e7e7;
 }
 
+.rating {
+  font-size: 24px;
+  display: inline;
+}
+
 .tabs {
   margin-top: 20px;
 }
