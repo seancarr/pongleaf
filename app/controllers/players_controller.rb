@@ -12,7 +12,7 @@ class PlayersController < ApplicationController
     end
     
     respond_to do |format|
-      format.js(render(text: names.collect(&:downcase).sort.uniq.collect(&:titleize).join("\n")))
+      format.js{render text: names.collect(&:downcase).sort.uniq.collect(&:titleize).join("\n")}
       format.html
     end
   end
