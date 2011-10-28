@@ -10,5 +10,5 @@ Pong::Application.routes.draw do
   match 'rankings' => 'matches#rankings'
   match 'matches/:player_id' => 'matches#index'
   
-  root to: 'matches#new'
+  root to: 'matches#rankings'
 end

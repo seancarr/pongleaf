@@ -21,21 +21,19 @@ class MatchesController < ApplicationController
     Match.find(params[:id]).destroy
     redirect_to matches_path
   end
-
-  def new
-    @match = Match.new
-  end
   
   def index
-    @matches = if params[:player_id]
+    @match = Match.new
+    if params[:player_id]
       @player = Player.find(params[:player_id])
       @matches = @player.matches
     else
-      Match.order("occured_at desc")
+      @matches = Match.order("occured_at desc")
     end
   end
 
   def rankings
+    @match = Match.new
     all_matches = Match.order("occured_at asc")
     @all_rankings = calculate_rankings(all_matches)
     @last_30_days_rankings = calculate_rankings(all_matches.select{|m| m.occured_at > 30.days.ago})
