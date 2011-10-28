@@ -1,3 +1,8 @@
+:javascript
+  $(function() {
+    $("#winner_name").focus();
+  });
+  
 = form_for(@match) do |f|
   = label_tag :winner_name
   = text_field_tag :winner_name, "", autocomplete: "off"
