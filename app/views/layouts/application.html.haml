@@ -15,7 +15,8 @@
       %header
         %h1 PongLeaf
         %nav
-          = link_to_with_current "Rankings", root_path
+          = link_to_with_current "Add Match", root_path
+          = link_to_with_current "Rankings", rankings_path
           = link_to_with_current "Matches", matches_path
 
       = render 'shared/flash_messages'

@@ -24,6 +24,9 @@ class MatchesController < ApplicationController
 
   def index
     @match = Match.new
+  end
+  
+  def matches
     @matches = Match.order("occured_at desc")
   end
 
