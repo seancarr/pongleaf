@@ -13,7 +13,8 @@
       %li{class: cycle("even", "odd")}
         = link_to(@players_by_id[player_id].display_name, player_path(player_id))
         .rating
-          - wins = elo_player.games.select{|g| g.result > 0.5}.size
+          - p elo_player.games.map(&:result)
+          - wins = elo_player.games.select{|g| (g.one==elo_player && g.result > 0.5) || (g.two==elo_player && g.result < 0.5)}.size
           = "#{wins}-#{elo_player.games_played-wins},"
           = elo_player.rating
           
