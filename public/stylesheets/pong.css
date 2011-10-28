@@ -16,12 +16,12 @@ h1, h3 {
 
 a {
   text-decoration: none;
-  color: #c50;
+  color: #3A74BA;
 }
 
 a.current {
   color: #eee;
-  background-color: #c50;
+  background-color: #3A74BA;
   padding-left: 3px;
   padding-right: 3px;
 }

@@ -1,0 +1,34 @@
+- content_for :title, "Rankings"
+
+= render(:partial => "shared/new_match")
+
+.tabs
+  / %ul.tab-bar
+  /   %li= link_to "All time", "#all-time"
+  /   %li= link_to "Last 30 days", "#30-days"
+  /   %li= link_to "Last 90 days", "#90-days"
+
+  %ol#all-time.rankings
+    - @ratings.each do |player_id, elo_player|
+      %li{class: cycle("even", "odd")}
+        = link_to(@players_by_id[player_id].display_name, player_path(player_id))
+        .rating
+          = elo_player.rating
+
+  - reset_cycle
+  / 
+  / %ol#30-days.rankings
+  /   - @last_30_days_rankings.each do |player, elo_player|
+  /     %li{class: cycle("even", "odd")}
+  /       = link_to(player.display_name, player_path(player.id))
+  /       .rating
+  /         = elo_player.rating
+  / 
+  / - reset_cycle
+  / 
+  / %ol#90-days.rankings
+  /   - @last_90_days_rankings.each do |player, elo_player|
+  /     %li{class: cycle("even", "odd")}
+  /       = link_to(player.display_name, player_path(player.id))
+  /       .rating
+  /         = elo_player.rating

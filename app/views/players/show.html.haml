@@ -1,0 +1,12 @@
+- content_for :title, "Player: #{@player.display_name}"
+
+%h2
+  = "#{@player.display_name}'s Match History"
+  %br
+  = "Record: #{@num_wins} - #{@num_loses}"
+  %br
+  = "Elo Rating: #{@elo_player.rating}"
+
+= image_tag(@lc.to_url + "&chf=bg,s,dedede&chds=#{@ratings.sort.first},#{@ratings.sort.last}&chd=t:#{@ratings.join(',')}")
+
+= render(:partial => "shared/matches")

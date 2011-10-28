@@ -1,7 +1,7 @@
+require 'elo_ratings'
+
 class MatchesController < ApplicationController
   skip_before_filter :verify_authenticity_token, only: :create
-
-  include MatchesHelper
 
   def create
     params[:match] ||= {}
@@ -11,6 +11,7 @@ class MatchesController < ApplicationController
     if params[:match][:winner].valid? &&params[:match][:loser].valid?
       match = Match.new(params[:match])
       match.save!
+      EloRatings.add_match(match)
     else
       flash.alert = "Must specify a winner and a loser to post a match."
     end
@@ -24,30 +25,7 @@ class MatchesController < ApplicationController
   
   def index
     @match = Match.new
-    if params[:player_id]
-      @player = Player.find(params[:player_id])
-      @matches = @player.matches
-    else
-      @matches = Match.order("occured_at desc")
-    end
+    @matches = Match.order("occured_at desc").includes([:winner, :loser])
   end
 
-  def rankings
-    @match = Match.new
-    all_matches = Match.order("occured_at asc")
-    @all_rankings = calculate_rankings(all_matches)
-    @last_30_days_rankings = calculate_rankings(all_matches.select{|m| m.occured_at > 30.days.ago})
-    @last_90_days_rankings = calculate_rankings(all_matches.select{|m| m.occured_at > 90.days.ago})
-  end
-
-  def players
-    if params[:q]
-      query = params[:q].downcase + '%'
-      names = Player.where(["LOWER(name) LIKE ?", query]).collect(&:name)
-    else
-      names = Player.all.collect(&:name)
-    end
-
-    render text: names.collect(&:downcase).sort.uniq.collect(&:titleize).join("\n")
-  end
 end

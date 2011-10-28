@@ -1,0 +1,12 @@
+%table
+  %tr
+    %th.date Date
+    %th Winner
+    %th Loser
+    %th.action
+  - @matches.each do |m|
+    %tr{class: cycle("even", "odd")}
+      %td.date= m.occured_at.strftime("%Y-%m-%d")
+      %td= link_to(m.winner.display_name, player_path(m.winner_id))
+      %td= link_to(m.loser.display_name, player_path(m.loser_id))
+      %td.action= link_to "delete", match_path(m), method: :delete
