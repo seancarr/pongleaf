@@ -7,26 +7,26 @@
     %li= link_to "Last 90 days", "#90-days"
 
   %ol#all-time.rankings
-    - @all_rankings.each do |name, elo_player|
+    - @all_rankings.each do |player, elo_player|
       %li{class: cycle("even", "odd")}
-        = name
+        = link_to(player.display_name, :player_id => player.id)
         .rating
           = elo_player.rating
 
   - reset_cycle
 
   %ol#30-days.rankings
-    - @last_30_days_rankings.each do |name, elo_player|
+    - @last_30_days_rankings.each do |player, elo_player|
       %li{class: cycle("even", "odd")}
-        = name
+        = link_to(player.display_name, :player_id => player.id)
         .rating
           = elo_player.rating
 
   - reset_cycle
 
   %ol#90-days.rankings
-    - @last_90_days_rankings.each do |name, elo_player|
+    - @last_90_days_rankings.each do |player, elo_player|
       %li{class: cycle("even", "odd")}
-        = name
+        = link_to(player.display_name, :player_id => player.id)
         .rating
           = elo_player.rating

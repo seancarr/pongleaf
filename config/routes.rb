@@ -1,6 +1,4 @@
 Pong::Application.routes.draw do
-  match 'rankings' => 'matches#rankings'
-  match 'matches' => 'matches#matches'
   
   resources :matches do
     collection do
@@ -9,5 +7,8 @@ Pong::Application.routes.draw do
     end
   end
   
-  root to: 'matches#index'
+  match 'rankings' => 'matches#rankings'
+  match 'matches/:player_id' => 'matches#index'
+  
+  root to: 'matches#new'
 end

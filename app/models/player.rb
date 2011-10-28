@@ -20,6 +20,10 @@ class Player < ActiveRecord::Base
     Match.where(['winner_id = ? OR loser_id = ?', id, id]).order('occured_at desc').first
   end
 
+  def matches
+    Match.where(['winner_id = ? OR loser_id = ?', id, id]).order('occured_at desc')
+  end
+
   def inactive?
     !active?
   end

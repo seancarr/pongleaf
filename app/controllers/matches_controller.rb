@@ -10,7 +10,7 @@ class MatchesController < ApplicationController
 
     if params[:match][:winner].valid? &&params[:match][:loser].valid?
       match = Match.new(params[:match])
-      match.save
+      match.save!
     else
       flash.alert = "Must specify a winner and a loser to post a match."
     end
@@ -22,12 +22,17 @@ class MatchesController < ApplicationController
     redirect_to matches_path
   end
 
-  def index
+  def new
     @match = Match.new
   end
   
-  def matches
-    @matches = Match.order("occured_at desc")
+  def index
+    @matches = if params[:player_id]
+      @player = Player.find(params[:player_id])
+      @matches = @player.matches
+    else
+      Match.order("occured_at desc")
+    end
   end
 
   def rankings
