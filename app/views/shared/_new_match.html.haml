@@ -4,8 +4,7 @@
   });
   
 = form_for(@match) do |f|
-  = label_tag :winner_name
   = text_field_tag :winner_name, "", autocomplete: "off"
-  = label_tag :loser_name
+  def
   = text_field_tag :loser_name, "", autocomplete: "off"
-  = submit_tag "Add match"
+  = submit_tag "Add Match"
