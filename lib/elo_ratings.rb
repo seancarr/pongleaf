@@ -24,6 +24,11 @@ class EloRatings
     @@players
   end
   
+  def self.recompute
+    @@players = nil
+    players
+  end
+  
   def self.ratings_by_date(player_id)
     local_players = Hash.new
     all_matches = Match.order("occured_at asc")

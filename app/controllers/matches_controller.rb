@@ -20,6 +20,7 @@ class MatchesController < ApplicationController
 
   def destroy
     Match.find(params[:id]).destroy
+    EloRatings.recompute
     redirect_to matches_path
   end
   
