@@ -11,10 +11,15 @@ class PlayersController < ApplicationController
       names = Player.all.collect(&:name)
     end
     
-    respond_to do |format|
-      format.js{render text: names.collect(&:downcase).sort.uniq.collect(&:titleize).join("\n")}
-      format.html
-    end
+    # names2 = names.collect(&:downcase).sort.uniq.collect(&:titleize).map{|n| "'#{n}'"}.join(",")
+    # respond_to do |format|
+    #   # format.js{render text: names.collect(&:downcase).sort.uniq.collect(&:titleize).join("\n")}
+    #   format.js{render json: "{query:'#{params[:q]}',suggestions:[#{names2}], data:[#{names2}]}"}
+    #   
+    #   format.html
+    # end
+    
+    render text: names.collect(&:downcase).sort.uniq.collect(&:titleize).join("\n")
   end
   
   def show

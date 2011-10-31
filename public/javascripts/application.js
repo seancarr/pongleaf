@@ -1,5 +1,4 @@
 $(document).ready( function(){
-  $('#winner_name').autocomplete('/players');
-  $('#loser_name').autocomplete('/players');
+  $('#new_match input[type=text]').autocomplete('/players');
   $('.tab-bar').tabs();
 });
