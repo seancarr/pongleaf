@@ -6,7 +6,6 @@ gem 'haml-rails'
 gem 'heroku'
 gem 'jquery-rails'
 gem 'elo'
-gem 'gchartrb'
 
 group :test, :development do
   gem 'sqlite3'

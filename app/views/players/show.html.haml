@@ -1,3 +1,19 @@
+%script{:src => "http://www.google.com/jsapi", :type => "text/javascript"}
+:javascript
+  google.load('visualization', '1', {'packages':['annotatedtimeline']});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', 'Date');
+    data.addColumn('number', 'Rating');
+    data.addRows([
+      #{@ratings_by_date.map{|date, rating| "[new Date(#{date.gsub(/-/,',')}), #{rating}]"}.join(',')}
+    ]);
+
+    var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+    chart.draw(data, {displayAnnotations: false, displayRangeSelector: false, scaleType: 'maximized', scaleColumns: [], numberFormats: "0"});
+  }
+
 - content_for :title, "Player: #{@player.display_name}"
 
 %h2
@@ -7,6 +23,6 @@
   %br
   = "Elo Rating: #{@elo_player.rating}"
 
-= image_tag(@lc.to_url + "&chf=bg,s,dedede&chds=#{@ratings.sort.first},#{@ratings.sort.last}&chd=t:#{@ratings.join(',')}")
+#chart_div{:style => "width:550px; height:200px; margin: 0 0 20px -5px;"}
 
 = render(:partial => "shared/matches")
