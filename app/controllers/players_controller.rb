@@ -1,5 +1,4 @@
 require 'elo_ratings'
-require 'google_chart'
 
 class PlayersController < ApplicationController
   
