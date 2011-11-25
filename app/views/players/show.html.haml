@@ -11,7 +11,7 @@
     ]);
 
     var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
-    chart.draw(data, {displayAnnotations: false, displayRangeSelector: false, scaleType: 'maximized', scaleColumns: [], numberFormats: "0"});
+    chart.draw(data, {displayAnnotations: false, displayRangeSelector: false, scaleType: 'maximized', scaleColumns: [], numberFormats: "0", colors: ['#3A74BA']});
   }
 
 - content_for :title, "Player: #{@player.display_name}"
