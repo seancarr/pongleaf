@@ -17,7 +17,7 @@
 - content_for :title, "Player: #{@player.display_name}"
 
 %h2
-  = "#{@player.display_name}'s Match History"
+  = "#{@player.display_name}'s Match History #{" vs. #{@vs.display_name}" if @vs}"
   %br
   = "Record: #{@num_wins} - #{@num_loses}"
   %br

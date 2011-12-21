@@ -16,8 +16,15 @@ class PlayersController < ApplicationController
   def show
     @player = Player.find(params[:id])
     @matches = @player.matches.includes([:winner, :loser]).order("occured_at desc")
-    @num_wins = @player.winning_matches.size
-    @num_loses = @player.losing_matches.size
+    if params[:vs]
+      @vs = Player.find(params[:vs])
+      @matches.reject!{|m| ![m.winner_id, m.loser_id].include?(@vs.id)}
+      @num_wins = @matches.select{|m| m.winner_id == @player.id}.size
+      @num_loses = @matches.select{|m| m.loser_id == @player.id}.size
+    else
+      @num_wins = @player.winning_matches.size
+      @num_loses = @player.losing_matches.size
+    end
     @elo_player = EloRatings.get_elo_player(@player.id)
     
     @ratings_by_date = EloRatings.ratings_by_date(@player.id)
