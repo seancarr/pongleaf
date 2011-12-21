@@ -10,13 +10,13 @@
         = m.occured_at.strftime("%Y-%m-%d")
       %td
         = link_to(m.winner.display_name, player_path(m.winner_id))
-        - if @player && @player.id != m.winner_id
+        - if @vs.nil? && @player && @player.id != m.winner_id
           (
           = link_to("vs.", player_path(@player.id, :vs => m.winner_id))
           )
       %td
         = link_to(m.loser.display_name, player_path(m.loser_id))
-        - if @player && @player.id != m.loser_id
+        - if @vs.nil? && @player && @player.id != m.loser_id
           (
           = link_to("vs.", player_path(@player.id, :vs => m.loser_id))
           )
