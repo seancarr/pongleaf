@@ -3,11 +3,22 @@
 = render(:partial => "shared/new_match")
 
 .tabs
-  / %ul.tab-bar
-  /   %li= link_to "All time", "#all-time"
-  /   %li= link_to "Last 30 days", "#30-days"
-  /   %li= link_to "Last 90 days", "#90-days"
+  %ul.tab-bar
+    %li= link_to "Active", "#30-days"
+    %li= link_to "All Time", "#all-time"
 
+  %ol#30-days.rankings
+    - @ratings.each do |player_id, elo_player|
+      - next if @players_by_id[player_id].most_recent_match.occured_at > 30.days.ago
+      %li{class: cycle("even", "odd")}
+        = link_to(@players_by_id[player_id].display_name, player_path(player_id))
+        .rating
+          - wins = elo_player.games.select{|g| (g.one==elo_player && g.result > 0.5) || (g.two==elo_player && g.result < 0.5)}.size
+          = "#{wins}-#{elo_player.games_played-wins},"
+          = elo_player.rating
+  
+  - reset_cycle
+  
   %ol#all-time.rankings
     - @ratings.each do |player_id, elo_player|
       %li{class: cycle("even", "odd")}
@@ -16,22 +27,4 @@
           - wins = elo_player.games.select{|g| (g.one==elo_player && g.result > 0.5) || (g.two==elo_player && g.result < 0.5)}.size
           = "#{wins}-#{elo_player.games_played-wins},"
           = elo_player.rating
-          
-
-  - reset_cycle
-  / 
-  / %ol#30-days.rankings
-  /   - @last_30_days_rankings.each do |player, elo_player|
-  /     %li{class: cycle("even", "odd")}
-  /       = link_to(player.display_name, player_path(player.id))
-  /       .rating
-  /         = elo_player.rating
-  / 
-  / - reset_cycle
-  / 
-  / %ol#90-days.rankings
-  /   - @last_90_days_rankings.each do |player, elo_player|
-  /     %li{class: cycle("even", "odd")}
-  /       = link_to(player.display_name, player_path(player.id))
-  /       .rating
-  /         = elo_player.rating
+  
