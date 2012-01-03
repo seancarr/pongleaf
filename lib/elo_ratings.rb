@@ -36,7 +36,7 @@ class EloRatings
     all_matches.each_with_index do |match, idx|
       add_match_to_players(match, local_players)
       if ([match.winner_id, match.loser_id].include?(player_id))
-        ratings[match.occured_at.to_date.to_s(:db)] = local_players[player_id].rating
+        ratings[match.occured_at.to_date] = local_players[player_id].rating
       end
     end
     ratings.to_a.sort

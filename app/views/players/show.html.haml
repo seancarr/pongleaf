@@ -7,7 +7,7 @@
     data.addColumn('date', 'Date');
     data.addColumn('number', 'Rating');
     data.addRows([
-      #{@ratings_by_date.map{|date, rating| "[new Date(#{date.gsub(/-/,',')}), #{rating}]"}.join(',')}
+      #{@ratings_by_date.map{|date, rating| "[new Date(#{(date-1.month).strftime("%Y,%m,%d")}), #{rating}]"}.join(',')}
     ]);
 
     var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
