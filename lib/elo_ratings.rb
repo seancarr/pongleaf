@@ -53,6 +53,7 @@ class EloRatings
   
   def self.get_elo_player_from_players(player_id, local_players)
     local_players[player_id] ||= Elo::Player.new
+    # local_players[player_id] ||= Elo::Player.new(:rating => Player.find(player_id).initial_rating)
   end
   
   def self.players_by_rating_from_players(local_players)
