@@ -149,14 +149,14 @@ td.action, th.action {
   display: inline;
 }
 
-.flash {
+#flash-messages {
   margin-bottom: 10px;
 }
 
-.flash .alert {
+#flash-messages .alert {
   color: red;
 }
 
-.flash .notice {
+#flash-messages .notice {
   color: green;
 }

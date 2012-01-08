@@ -12,10 +12,11 @@ class MatchesController < ApplicationController
       match = Match.new(params[:match])
       match.save!
       EloRatings.add_match(match)
+      flash.notice = "Successfully added match between #{params[:winner_name]} and #{params[:loser_name]}"
     else
       flash.alert = "Must specify a winner and a loser to post a match."
     end
-    redirect_to matches_path
+    redirect_to :back
   end
 
   def destroy

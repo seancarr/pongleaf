@@ -1,6 +1,5 @@
-- if notice || alert
-  .flash
-    - if notice
-      .notice= notice
-    - if alert
-      .alert= alert
+#flash-messages
+  - if notice
+    .notice= notice
+  - if alert
+    .alert= alert
