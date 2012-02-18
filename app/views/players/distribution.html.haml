@@ -10,11 +10,11 @@
     data.addColumn('number', 'Rating');
     data.addColumn({type:'string', role:'tooltip'});
     data.addRows([
-      #{i=0;@ratings.slice(0, @top_n).map{|player_id, elo_player| "[#{i+=1}, #{elo_player.rating}, '#{@players_by_id[player_id].display_name} - #{elo_player.rating}']"}.join(',')}
+      #{i=0;@ratings.slice(0, @top_n).map{|player_id, elo_player| "[#{i+=1}, #{elo_player.rating}, '#{i}. #{@players_by_id[player_id].display_name} - #{elo_player.rating}']"}.join(',')}
     ]);
 
     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    chart.draw(data, {hAxis: {title: 'Rank'}, vAxis: {title: 'Rating', viewWindowMode: 'maximized'}, legend: {position: 'none'}, colors: ['#3A74BA']});
+    chart.draw(data, {hAxis: {title: 'Rank'}, vAxis: {title: 'Rating', viewWindowMode: 'maximized'}, pointSize: 4, legend: {position: 'none'}, colors: ['#3A74BA']});
   }
 
 #chart_div{:style => "width:550px; height:400px; margin: 0 0 20px -5px;"}
