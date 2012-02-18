@@ -39,6 +39,7 @@ class PlayersController < ApplicationController
   def distribution
     rankings
     @ratings.reject!{|player_id, _| @players_by_id[player_id].most_recent_match.occured_at < 30.days.ago}
+    @top_n = parms[:n] ? params[:n].to_i : @ratings.size
   end
   
 end
