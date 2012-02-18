@@ -1,0 +1,20 @@
+- content_for :title, "Distribution"
+
+%script{:src => "http://www.google.com/jsapi", :type => "text/javascript"}
+:javascript
+  google.load('visualization', '1', {'packages':['corechart']});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('number', 'Rank');
+    data.addColumn('number', 'Rating');
+    data.addColumn({type:'string', role:'tooltip'});
+    data.addRows([
+      #{i=0;@ratings.map{|player_id, elo_player| "[#{i+=1}, #{elo_player.rating}, '#{@players_by_id[player_id].display_name} - #{elo_player.rating}']"}.join(',')}
+    ]);
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(data, {hAxis: {title: 'Rank'}, vAxis: {title: 'Rating'}, legend: {position: 'none'}, colors: ['#3A74BA']});
+  }
+
+#chart_div{:style => "width:550px; height:200px; margin: 0 0 20px -5px;"}
