@@ -36,4 +36,8 @@ class PlayersController < ApplicationController
     @players_by_id = Player.all.index_by{|p| p.id}
   end
   
+  def distribution
+    rankings
+  end
+  
 end

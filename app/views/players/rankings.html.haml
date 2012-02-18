@@ -27,4 +27,3 @@
           - wins = elo_player.games.select{|g| (g.one==elo_player && g.result > 0.5) || (g.two==elo_player && g.result < 0.5)}.size
           = "#{wins}-#{elo_player.games_played-wins},"
           = elo_player.rating
-  
