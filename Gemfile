@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+ruby "1.8.7"
 
 gem 'rake', '< 0.9'
 gem 'rails', '3.1.10'
